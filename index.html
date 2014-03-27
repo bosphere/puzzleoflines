@@ -65,9 +65,14 @@
     $(function(){
       var hash = window.location.hash;
       var conf_str = decodeURIComponent(hash.substr(1));
-      var conf = {};
-      if(conf_str && conf_str.length > 0 && conf_str != "null") {
-        conf = JSON.parse(conf_str);
+      var conf;
+      if(conf_str) {
+        try {
+          conf = JSON.parse(conf_str);
+        } catch(e) {
+          // console.log("failed to read input json: " + e);
+          conf = {};
+        }
       }
       var inv_color = conf['inv-color'] == null? 1 : conf['inv-color'];
       var vib_disconn = conf['vib-disconn'] == null? 0 : conf['vib-disconn'];
