@@ -25,6 +25,8 @@
         </div>
         <hr>
         <div id="body">
+          <h5 class="text-muted">How to read the time:</h5>
+          <p class="text-muted"><b>hours</b> in the central area - horizontal lines one to six, vertical lines seven to twelve; <b>minutes</b> - the tiny solid rectangule circles around the outer frame and changes position every minute, while each gap corresponds to clock position one to twelve.</p>
           <ul>
             <li>
               <label for='chkbx'>inverse color</label>
@@ -41,7 +43,7 @@
               </div>
             </li>
             <li>
-              <label for='chkbx3'>battery saving mode</label>
+              <label for='chkbx3'>battery saving mode<br><small class="text-muted">screen updates every 15 sec</small></label>
               <div class='togglebox'>
                 <input type='checkbox' id='bat-save'>
                 <label for='bat-save'><b></b></label>
@@ -52,6 +54,7 @@
           <div style="text-align:center;">
             <button id="submit-btn" type="button" class="btn btn-danger btn-lg" style="width:200px;border-radius: 0;border-color:transparent;background:#333333;">Apply</button>
           </div>
+          <br><br>
         </div>
       </div> <!-- /container -->
       <div class="push"></div>
@@ -65,13 +68,14 @@
     $(function(){
       var hash = window.location.hash;
       var conf_str = decodeURIComponent(hash.substr(1));
-      var conf;
+      var conf = {};
       if(conf_str) {
         try {
           conf = JSON.parse(conf_str);
         } catch(e) {
           // console.log("failed to read input json: " + e);
-          conf = {};
+        } finally {
+          if(!conf) conf = {};
         }
       }
       var inv_color = conf['inv-color'] == null? 1 : conf['inv-color'];
